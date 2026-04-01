@@ -1,0 +1,87 @@
+{{#css:
+        :root {
+            --text-secondary: #aaaaaa;
+            --accent-color: #00A500;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 150% 50%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .accent-text {
+            background: linear-gradient(135deg, #ccff00, #00ff88, #00d2ff, #a78bfa, #00ff88, #ccff00);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 5s linear infinite;
+        }
+
+        .badge-ai {
+            font-size: 0.7em;
+            font-weight: 700;
+            background-color: rgba(0, 165, 0, 0.15);
+            color: var(--accent-color);
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-left: 4px;
+            position: relative;
+            top: -2px;
+        }
+
+        .chat-hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .chat-hero #hero-title {
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .chat-hero p {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        .badge-ai-hover {
+            text-decoration: none;
+            display: inline-grid;
+            cursor: pointer;
+        }
+        
+        .header-upgrade-btn {
+    color: rgb(0, 0, 0);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: rgba(0, 165, 0, 0.4) 0px 0px 10px;
+    background: linear-gradient(135deg, rgb(16, 163, 127), rgb(0, 255, 136), rgb(0, 207, 255), rgb(167, 139, 250), rgb(0, 255, 136), rgb(16, 163, 127)) 0% 0% / 300% 300%;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    padding: 10px 16px;
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: 3s linear 0s infinite normal none running gradientShift, 3s ease 0s infinite normal none running upgradePulse;
+}
+}}
+<div class="chat-hero" id="chat-hero" style="font-weight: bold; font-size: 1em; padding: 2em">
+[[파일:Libertygame_logo_reverse_character.svg|Liberty AI Logo|100px|link=]]
+<p style="letter-spacing: 0.5rem; color: var(--accent-color); font-size: 1.5em; margin:0">세상에 없는 게임을 만나다</p>
+<p id="hero-title" style="font-size: 3em; margin: 0; color: light-dark(black, white);">리버티게임 <span class="accent-text">2.0</span> <span class="badge-ai badge-ai-hover" style="padding: 0.05em 0.5em; border-radius: 0.25em; vertical-align: middle;"><span class="accent-text">AI</span></span></p>
+<p style="margin-top: 2em; letter-spacing: 0.25rem; font-size: 1em;">[//{{#choose:libertyga.me|libertygame.work}}/ai <span class="header-upgrade-btn" style="color:#000">바로가기 →</span>]</p>
+</div>

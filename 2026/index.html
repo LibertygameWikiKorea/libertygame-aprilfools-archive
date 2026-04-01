@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리버티게임 2.0 AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="/wiki/특수:넘겨주기/file/Libertygame_logo_reverse_character.svg" type="image/svg+xml">
+    <meta name="description" content="세상에 없는 게임을 만나다 - 리버티게임 AI">
+    <meta property="og:title" content="리버티게임 2.0 AI">
+    <meta property="og:description" content="세상에 없는 게임을 만나다 - 리버티게임 AI">
+    <meta property="og:image" content="/wiki/특수:넘겨주기/file/Libertygame_2.0_AI_banner.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="리버티게임 2.0 AI">
+    <meta name="twitter:description" content="세상에 없는 게임을 만나다 - 리버티게임 AI">
+</head>
+
+<body>
+    <div class="app-container">
+
+
+        <main class="chat-wrapper">
+            <header class="chat-header">
+                <h2 id="reset-chat-btn" title="리버티게임 2.0 대문">리버티게임 <span class="accent-text">2.0</span> <span
+                        class="badge-ai"><span class="accent-text">AI</span></span></h2>
+                <button class="header-upgrade-btn" id="header-upgrade-btn">옆그레이드</button>
+            </header>
+
+            <div class="chat-hero" id="chat-hero">
+                <img src="/wiki/특수:넘겨주기/file/Libertygame_logo_reverse_character.svg" alt="Liberty AI Logo">
+                <p>세상에 없는 게임을 만나다</p>
+                <h1>리버티게임 <span class="accent-text">2.0</span> <a href="/wiki/리버티게임:대문" class="badge-ai badge-ai-hover"
+                        title="리버티게임 위키로 돌아가기"><span class="badge-ai-text accent-text">AI</span><span
+                            class="badge-wiki-text accent-text">WIKI</span></a></h1>
+                <p style="margin-top: 1em">오늘은 어떤 게임을 해볼까요?</p>
+            </div>
+
+            <div class="chat-messages" id="chat-messages" style="display: none;">
+                <!-- Messages will appear here -->
+            </div>
+
+            <div class="chat-input-wrapper">
+                <div class="chat-input-container">
+                    <div class="input-box">
+                        <textarea id="chat-input" placeholder="하고 싶은 게임 설명하기..." rows="1"></textarea>
+                        <button id="send-btn" disabled>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="disclaimer-row">
+                        <p class="disclaimer">리버티게임 AI는 정확한 정보를 제공할 리 없습니다<a href="/wiki/리버티게임:대문"
+                                style="color: var(--text-secondary); text-decoration: none;">.</a></p>
+                        <div class="privacy-settings-wrapper" id="privacy-settings-wrapper">
+                            <button class="privacy-settings-btn" id="privacy-settings-btn">개인 설정</button>
+                            <div class="privacy-dropdown" id="privacy-dropdown">
+                                <a href="/wiki/리버티게임:개인정보 취급방침" class="privacy-dropdown-link">🔒 개인정보 취급방침</a>
+                                <button id="cookie-settings-btn" class="privacy-dropdown-link"
+                                    style="background:none;border:none;cursor:pointer;text-align:left;width:100%;padding:10px 20px;font-size:13px;color:var(--text-secondary);font-family:inherit;">🍪
+                                    쿠키 설정</button>
+                                <div style="border-top: 1px solid var(--border-color); margin: 4px 0;"></div>
+                                <a href="/wiki/리버티게임:대문/임시낚시?useskin=vector" class="privacy-dropdown-link">↩ 이전 버전으로 돌아가기</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Prank Reveal Modal -->
+    <div class="modal-overlay" id="prank-modal">
+        <div class="modal-content" style="max-width: 480px; text-align: center;">
+            <div class="modal-header" style="margin-bottom: 16px;">
+                <h2 style="color: var(--text-primary); font-size: 24px;">🎣 월척이다!</h2>
+                <p>지금까지 만우절이었습니다!</p>
+                <p>리버티게임은 절대 유료화하지 않습니다!</p>
+            </div>
+            <img src="/wiki/특수:넘겨주기/file/낚시질2.jpg" alt="낚였다"
+                style="width: 100%; border-radius: 12px; margin-bottom: 20px;">
+            <div id="prank-btn-container" class="prank-container">
+                <!-- 실제 동작: 또 낚이기 (하지만 가짜로 '돌아가기' 행세) -->
+                <button id="prank-more-btn" class="prank-btn fake-premium"
+                    onclick="document.getElementById('prank-modal').classList.remove('active'); document.getElementById('chat-input').disabled=false; setTimeout(()=>document.getElementById('chat-input').focus(),100);">
+                    <span class="fake-text">리버티게임으로 돌아가기</span>
+                    <span class="real-text">또 낚이기</span>
+                </button>
+                <!-- 실제 동작: 돌아가기 (하지만 가짜로 '더 낚이기' 행세) -->
+                <a href="/wiki/리버티게임:대문" id="prank-return-btn" class="prank-btn fake-alt">
+                    <span class="fake-text">또 낚이기</span>
+                    <span class="real-text">리버티게임으로 돌아가기</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Modal -->
+    <div class="modal-overlay" id="cookie-modal">
+        <div class="modal-content" style="max-width: 480px;">
+            <button class="modal-close-btn" id="cookie-modal-close" aria-label="닫기">✕</button>
+            <div class="modal-header" style="margin-bottom: 20px;">
+                <h2 style="color: var(--text-primary); font-size: 20px;">🍪 내가 만든 쿠키</h2>
+                <p>너를 위해 구웠습니다.</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; text-align: left;">
+                <label class="cookie-item">
+                    <div>
+                        <strong>🍫 초코칩 쿠키</strong>
+                        <p style="font-size: 12px; color: var(--text-secondary); margin: 2px 0 0;">서비스의 달콤한 맛을 내는 데
+                            필수적입니다. 거부 시 쓴맛만 남습니다.</p>
+                    </div>
+                    <input type="checkbox" checked disabled
+                        style="width:18px;height:18px;accent-color:var(--accent-color);">
+                </label>
+                <label class="cookie-item">
+                    <div>
+                        <strong>🥜 땅콩버터 쿠키</strong>
+                        <p style="font-size: 12px; color: var(--text-secondary); margin: 2px 0 0;">귀하가 어디에 달라붙는지 분석합니다.
+                            땅콩 알러지가 있는지는 알 게 뭐야.</p>
+                    </div>
+                    <input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--accent-color);">
+                </label>
+                <label class="cookie-item">
+                    <div>
+                        <strong>🥠 포춘 쿠키</strong>
+                        <p style="font-size: 12px; color: var(--text-secondary); margin: 2px 0 0;">귀하의 미래를 예측하여 맞춤 조언을
+                            해줍니다. 거부해도 운명은 피할 수 없습니다.</p>
+                    </div>
+                    <input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--accent-color);">
+                </label>
+                <label class="cookie-item">
+                    <div>
+                        <strong>🌾 오트밀 쿠키</strong>
+                        <p style="font-size: 12px; color: var(--text-secondary); margin: 2px 0 0;">먹기 싫을 수 있지만 몸에는 좋습니다.
+                            동의하면 건강해집니다.</p>
+                    </div>
+                    <input type="checkbox" style="width:18px;height:18px;accent-color:var(--accent-color);">
+                </label>
+                <label class="cookie-item">
+                    <div>
+                        <strong>🧆 두바이 쫀득 쿠키</strong>
+                        <p style="font-size: 12px; color: var(--text-secondary); margin: 2px 0 0;">두바이에서 온 쫀득한 쿠키라고 알려진
+                            음식입니다. 지금은 품절되어 받을 수 없습니다.</p>
+                    </div>
+                    <input type="checkbox" disabled style="width:18px;height:18px;accent-color:var(--accent-color);">
+                </label>
+
+            </div>
+            <div style="display: flex; gap: 12px;">
+                <button id="cookie-accept-btn" class="tier-btn premium-btn" style="flex:2;">확인</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing Modal -->
+    <div class="modal-overlay" id="pricing-modal">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="pricing-modal-close" aria-label="닫기">✕</button>
+            <div class="modal-header">
+                <h2>⚠️ 이용 한도 초과</h2>
+                <p>무료 제공량이 소진되었습니다. 계속 이용하려면 요금제를 옆그레이드하세요.</p>
+            </div>
+            <div class="pricing-tiers">
+                <!-- Tier 1 - 연구소 -->
+                <div class="tier">
+                    <h3>연구소에 요청</h3>
+                    <ul>
+                        <li>성의있는 결과물</li>
+                        <li>매우 느림</li>
+                        <li>답변 보장 못 함</li>
+                    </ul>
+                    <button id="suggest-lab-btn" class="tier-btn upgrade-btn price">무료</button>
+                </div>
+                <!-- Tier 2 -->
+                <div class="tier">
+                    <h3>Pro</h3>
+                    <ul>
+                        <li>틀렸을 때 더 당당하게 틀림</li>
+                        <li>더 성의있는 헛소리 생성</li>
+                        <li>Infinite Supreme Grand Royal Prime Elite Signature Platinum Diamond Gold Deluxe Premium
+                            Advanced
+                            Professional Hyper Mega
+                            Extreme Super Ultra Pro Max Plus 보다 더 저렴함</li>
+                    </ul>
+                    <button class="tier-btn upgrade-btn price" data-plan="Pro"
+                        data-price="29,100">29,100원<span>/월</span></button>
+                </div>
+                <!-- Tier 3 -->
+                <div class="tier premium">
+                    <h3>Infinite Supreme Grand Royal Prime Elite Signature Platinum Diamond Gold Deluxe Premium Advanced
+                        Professional Hyper Mega
+                        Extreme Super Ultra Pro Max Plus</h3>
+                    <ul>
+                        <li>자동 반달 에이전트 포함</li>
+                        <li>200‱ 더 빠름</li>
+                        <li>2배 더 생각하고 말함</li>
+                    </ul>
+                    <button class="tier-btn upgrade-btn premium-btn price"
+                        data-plan="Infinite Supreme Grand Royal Prime Elite Signature Platinum Diamond Gold Deluxe Premium Advanced Professional Hyper Mega Extreme Super Ultra Pro Max Plus"
+                        data-price="291,000">291,000원<span>/월</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fake Payment Modal -->
+    <div class="modal-overlay" id="payment-modal">
+        <div class="modal-content" style="max-width: 520px;">
+            <div class="modal-header" style="margin-bottom: 20px;">
+                <h2 style="color: var(--text-primary); font-size: 20px;">💳 결제 정보 입력</h2>
+                <p id="payment-plan-desc">요금제</p>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:12px; text-align:left;">
+                <div>
+                    <label style="font-size:12px;color:var(--text-secondary);">그래픽 카드 번호</label>
+                    <input type="text" placeholder="1234 - 5678 - **** - 9012"
+                        style="width:100%;padding:10px;background:#333;border:1px solid var(--border-color);border-radius:6px;color:white;margin-top:4px;font-size:13px;"
+                        maxlength="30">
+                </div>
+                <div style="display:flex; gap:10px;">
+                    <div style="flex:1;">
+                        <label style="font-size:12px;color:var(--text-secondary);">유통기한</label>
+                        <input type="text" placeholder="MM / YY"
+                            style="width:100%;padding:10px;background:#333;border:1px solid var(--border-color);border-radius:6px;color:white;margin-top:4px;font-size:13px;">
+                    </div>
+                    <div style="flex:1;">
+                        <label style="font-size:12px;color:var(--text-secondary);">POV</label>
+                        <input type="text" placeholder="***"
+                            style="width:100%;padding:10px;background:#333;border:1px solid var(--border-color);border-radius:6px;color:white;margin-top:4px;font-size:13px;"
+                            maxlength="3">
+                    </div>
+                </div>
+                <div>
+                    <label style="font-size:12px;color:var(--text-secondary);">이름</label>
+                    <input type="text" placeholder="홍길동"
+                        style="width:100%;padding:10px;background:#333;border:1px solid var(--border-color);border-radius:6px;color:white;margin-top:4px;font-size:13px;">
+                </div>
+                <!-- Prank CAPTCHA — reCAPTCHA style -->
+                <div class="recaptcha-widget">
+                    <label class="recaptcha-left" for="captcha-robot">
+                        <div class="recaptcha-checkbox-wrap" id="recaptcha-box">
+                            <input type="checkbox" id="captcha-robot" class="recaptcha-hidden-check">
+                            <div class="recaptcha-checkmark" id="recaptcha-checkmark">
+                                <svg viewBox="0 0 12 10" fill="none" stroke="#1a73e8" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="1.5 5 4.5 8 10.5 1.5" />
+                                </svg>
+                            </div>
+                        </div>
+                        <span class="recaptcha-label">로봇이 맞습니다.</span>
+                    </label>
+                    <div class="recaptcha-right">
+                        <!-- reCAPTCHA 스타일 로고 -->
+                        <svg class="recaptcha-logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="rcGrad" x1="1" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#777" />
+                                    <stop offset="100%" stop-color="#34a853" />
+                                </linearGradient>
+                            </defs>
+                            <!-- 원형 호 (3/4 바퀴) -->
+                            <path d="M 24 6 A 18 18 0 1 1 6 24" stroke="url(#rcGrad)" stroke-width="4" fill="none"
+                                stroke-linecap="round" />
+                            <!-- 삼각형 화살표 머리 (원호 시작점 방향) -->
+                            <polygon points="24,0 24,12 16,6" fill="url(#rcGrad)" />
+                        </svg>
+                        <span class="recaptcha-brand">liCAPTCHA</span>
+                        <span class="recaptcha-terms">보안확인 · <a href="#" style="color:inherit;">약관</a></span>
+                    </div>
+                </div>
+                <p id="captcha-warning" style="display:none; color:#ff6b6b; font-size:12px; margin:0;">⚠️ 위 체크박스를 클릭해
+                    주세요.
+                </p>
+                <div
+                    style="background:rgba(255,70,70,0.08);border:1px solid rgba(255,70,70,0.3);border-radius:8px;padding:10px;font-size:12px;color:#ff8a8a;">
+                    ⚠️ 매 달 결제되는 정기 구독 상품입니다. 해지는 다음 생부터 가능합니다.
+                </div>
+            </div>
+            <div style="display:flex; gap:12px; margin-top:20px;">
+                <button id="payment-cancel-btn" class="alt-btn" style="flex:1;">취소</button>
+                <button id="payment-confirm-btn" class="tier-btn premium-btn btn-locked" style="flex:2; padding:14px;">
+                    결제하기 (<span id="payment-price-display">0</span>원)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
